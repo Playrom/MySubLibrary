@@ -11,13 +11,13 @@ jobs:
       - name: Trigger repository_dispatch event
         run: |
           curl -X POST \
-          -H "Authorization: token ${{ secrets.USER_ACTION_TOKEN }}" \
-          -H "Accept: application/json" \
-          -d '{"event_type": "check-related-prs", "client_payload": { "repository": "${{ github.repository }}", "pull_request": "${{ github.event.pull_request.number }}" }}' \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{"event_type": "check-related-prs", "client_payload": { "repository": "${{ github.repository }}", "pull_request": "${{ github.event.pull_request.number }}", "action": "${{ github.event.action }}", "state": "${{ github.event.pull_request.state }}" }}' \
           https://api.github.com/repos/Playrom/MyLibrary/dispatches
 
           curl -X POST \
-          -H "Authorization: token ${{ secrets.USER_ACTION_TOKEN }}" \
-          -H "Accept: application/json" \
-          -d '{"event_type": "check-related-prs", "client_payload": { "repository": "${{ github.repository }}", "pull_request": "${{ github.event.pull_request.number }}" }}' \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{"event_type": "check-related-prs", "client_payload": { "repository": "${{ github.repository }}", "pull_request": "${{ github.event.pull_request.number }}", "action": "${{ github.event.action }}", "state": "${{ github.event.pull_request.state }}" }}' \
           https://api.github.com/repos/Playrom/App/dispatches
