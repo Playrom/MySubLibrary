@@ -20,7 +20,6 @@ jobs:
           if [ -z "$RELATED_PRS" ]; then
             echo "No related PRs found. Marking all as merged."
             echo "all_merged=true" >> $GITHUB_ENV
-            echo "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}"
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.USER_ACTION_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
