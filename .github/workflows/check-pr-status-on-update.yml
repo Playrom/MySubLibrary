@@ -20,11 +20,11 @@ jobs:
           if [ -z "$RELATED_PRS" ]; then
             echo "No related PRs found. Marking all as merged."
             echo "all_merged=true" >> $GITHUB_ENV
-            echo "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
+            echo "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}"
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.USER_ACTION_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+                "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}" \
                 -d "{\"state\": \"success\", \"description\": \"All related PRs merged\", \"context\": \"Dependencies PRs\"}"
             exit 0
           fi
@@ -59,13 +59,13 @@ jobs:
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.USER_ACTION_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+                "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}" \
                 -d "{\"state\": \"success\", \"description\": \"All related PRs merged\", \"context\": \"Dependencies PRs\"}"
           else
             echo "Not all related PRs are merged. Exiting."
               curl -X POST \
                 -H "Authorization: Bearer ${{ secrets.USER_ACTION_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+                "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}" \
                 -d "{\"state\": \"failure\", \"description\": \"All related PRs merged\", \"context\": \"Dependencies PRs\"}"
           fi
